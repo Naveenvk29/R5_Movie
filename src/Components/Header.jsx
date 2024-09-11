@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Header = ({ data }) => {
@@ -17,7 +16,7 @@ const Header = ({ data }) => {
         backgroundSize: "cover",
         backgroundPosition: "top 10",
       }}
-      className="w-full h-[60vh] flex flex-col justify-end items-start p-[7%] select-none relative "
+      className="w-full h-[50vh] flex flex-col justify-end items-start p-[7%] select-none relative "
     >
       <h1 className="w-[70%] text-5xl font-black ">
         {data.title || data.name}
