@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "../utils/Axios";
-import noimage from "../assets/noimage.jpg";
+import axios from "../../utils/Axios";
+import noimage from "../../assets/noimage.jpg";
 
 const TopNav = () => {
   const [quary, setQuary] = useState("");
