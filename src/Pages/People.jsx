@@ -50,7 +50,7 @@ const People = () => {
             onClick={() => navigate(-1)}
             className="hover:text-[#6556cd] mr-5 ri-arrow-left-line"
           ></i>
-          Person
+          People
         </h1>
         <div className="w-full flex items-center justify-between gap-24">
           <TopNav />
