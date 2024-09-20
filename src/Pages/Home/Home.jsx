@@ -12,6 +12,8 @@ const Home = () => {
   const [trading, setTrading] = useState(null);
   const [category, setCategory] = useState("all");
 
+  document.title = "R5 Movie | Home";
+
   const getHeaderbanner = async () => {
     try {
       const { data } = await axios.get(`/trending/all/day`);

@@ -13,25 +13,43 @@ const Trending = () => {
   const [duration, setDuration] = useState("day");
   const [trending, setTrending] = useState([]);
   const [page, setPage] = useState(1);
+  const [hasmore, sethasmore] = useState(true);
+
+  document.title = "R5 Movie | trending" + " " + category.toUpperCase();
 
   const getTreading = async () => {
     try {
-      const { data } = await axios.get(`/trending/${category}/${duration}`);
-      // setTrending(data.results);
-      setTrending((prestate) => [...prestate, ...data.results]);
-      setPage(page + 1);
+      const { data } = await axios.get(
+        `/trending/${category}/${duration}?page=${page}`
+      );
+      if (data.results.length > 0) {
+        setTrending((prestate) => [...prestate, ...data.results]);
+        setPage(page + 1);
+      } else {
+        sethasmore(false);
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handlerefresh = () => {
+    if (trending.length === 0) {
+      getTreading();
+    } else {
+      setPage(1);
+      setTrending([]);
+      getTreading();
+    }
+  };
   //   console.log(trending);
   useEffect(() => {
-    getTreading();
+    handlerefresh();
   }, [category, duration]);
 
   return trending.length > 0 ? (
-    <div className="p-[3vw] w-screen h-screen overflow-hidden overflow-y-auto">
-      <div className="w-full flex items-center justify-between">
+    <div className="w-screen h-screen ">
+      <div className="w-full flex items-center justify-between px-[5vw]">
         <h1 className="text-2xl font-semibold text-zinc-400">
           <i
             onClick={() => navigate(-1)}
@@ -39,13 +57,14 @@ const Trending = () => {
           ></i>
           Trending
         </h1>
-        <div className="w-full flex items-center justify-between gap-24">
+        <div className="w-full flex items-center justify-between">
           <TopNav />
           <Dropdown
             title="Category"
             options={["tv", "movie", "all"]}
             fn={(e) => setCategory(e.target.value)}
           />
+          <div className="w-[5vw]"></div>
           <Dropdown
             title="Duration"
             options={["week", "day"]}
@@ -56,7 +75,7 @@ const Trending = () => {
       <InfiniteScroll
         dataLength={trending.length}
         next={getTreading}
-        hasMore={true}
+        hasMore={hasmore}
         loader={<h1>Loading...</h1>}
       >
         <Cards data={trending} title={category} />

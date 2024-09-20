@@ -5,7 +5,7 @@ const Cards = ({ data, title }) => {
   // console.log(data);
 
   return (
-    <div className="flex flex-wrap w-[full]">
+    <div className="flex flex-wrap w-[full] px-[8vw]">
       {data.map((d, i) => (
         <Link key={i} className="w-[25vh] mr-[5%] mb-[5%]">
           <img
