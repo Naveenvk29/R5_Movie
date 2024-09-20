@@ -23,7 +23,12 @@ const Header = ({ data }) => {
       </h1>
       <p className="w-[50%] text-sm  text-zinc-400">
         {data.overview.slice(0, 200)} ...{" "}
-        <Link className="text-[#6556cd] ">more</Link>
+        <Link
+          to={`/${data.media_type || title}/details/${data.id}`}
+          className="text-[#6556cd] "
+        >
+          more
+        </Link>
       </p>
       <p>
         <i className=" text-green-800 ri-megaphone-fill"></i>{" "}
@@ -37,7 +42,8 @@ const Header = ({ data }) => {
       <div className=" absolute top-0 right-[10%] text-zinc-500  ">
         <h5>
           {" "}
-          rating: {data.vote_average && <span>({data.vote_average}/10)</span>}
+          rating:{" "}
+          {data.vote_average && <span>({data.vote_average.toFixed()}/10)</span>}
         </h5>
       </div>
     </div>

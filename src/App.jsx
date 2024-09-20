@@ -2,9 +2,13 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Trending from "./Pages/Trading";
 import Popular from "./Pages/Popular";
-import Movie from "./Pages/Movie";
-import TVshows from "./Pages/TVshows";
-import People from "./Pages/People";
+import Movie from "./Pages/Movie/Movie";
+import TVshows from "./Pages/TvShow/TVshows";
+import People from "./Pages/People/People";
+import MovieDetail from "./Pages/Movie/MovieDetail";
+import TvshowDetail from "./Pages/TvShow/TvshowDetail";
+import PeopleDetail from "./Pages/People/PeopleDetail";
+
 const App = () => {
   return (
     <div className="flex w-full h-screen bg-zinc-800 text-white  ">
@@ -12,9 +16,17 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/trading" element={<Trending />} />
         <Route path="/popular" element={<Popular />} />
-        <Route path="/movies" element={<Movie />} />
-        <Route path="/tvshows" element={<TVshows />} />
+
+        <Route path="/movie" element={<Movie />} />
+        <Route path="/movie/details/:id" element={<MovieDetail />} />
+
+        <Route path="/tv" element={<TVshows />} />
+        <Route path="tv/details/:id" element={<TvshowDetail />} />
+
         <Route path="/person" element={<People />} />
+        <Route path="/person/details/:id" element={<PeopleDetail />} />
+
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
   );

@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "../utils/Axios";
-import TopNav from "./Home/TopNav";
-import Loader from "../Components/Loader";
-import Cards from "../Components/Cards";
-import Dropdown from "../Components/Dropdown";
+import axios from "../../utils/Axios";
+import TopNav from "../Home/TopNav";
+import Loader from "../../Components/Loader";
+import Cards from "../../Components/Cards";
+import Dropdown from "../../Components/Dropdown";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const TVshows = () => {
@@ -68,7 +68,7 @@ const TVshows = () => {
         hasMore={hasMore}
         loader={<h1>Loading...</h1>}
       >
-        <Cards data={tv} title={category} />
+        <Cards data={tv} title="tv" />
       </InfiniteScroll>
     </div>
   ) : (
