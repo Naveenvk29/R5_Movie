@@ -1,20 +1,22 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { asyncloadmovie } from "../../redux/actions/movieAction";
 import { removeMovie } from "../../redux/features/MovieSlice";
 import Loader from "../../Components/Loader";
+import HorizontalCards from "../Home/HorizontalCards";
 
 const MovieDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { info } = useSelector((state) => state.movie);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     dispatch(asyncloadmovie(id));
     return () => dispatch(removeMovie());
-  }, []);
+  }, [id]);
 
   return info ? (
     <div
@@ -27,9 +29,9 @@ const MovieDetail = () => {
         backgroundSize: "cover",
         backgroundPosition: "top 10",
       }}
-      className="w-screen h-screen px-[10vw]"
+      className="w-[99vw] min-h-[170vh]  px-[10vw]"
     >
-      <nav className="w-full text-zinc-200 flex gap-10 text-2xl mt-5 ">
+      <nav className=" w-full text-zinc-200 flex gap-10 text-2xl my-5 ">
         <Link
           onClick={() => navigate(-1)}
           className="hover:text-[#6556cd] mr-5 ri-arrow-left-line"
@@ -51,6 +53,121 @@ const MovieDetail = () => {
           IMDB
         </a>
       </nav>
+      {/*  */}
+
+      <div className="w-full flex">
+        <img
+          className="shadow-[8px_17px_38px_2px_rgba(0,0,0,0.5)] h-[65vh] object-cover"
+          src={`https://image.tmdb.org/t/p/original${
+            info.detail.poster_path || info.detail.backdrop_path
+          }`}
+          alt=""
+        />
+        <div className="ml-[5vw]">
+          <h1 className="text-5xl font-black ">
+            {info.detail.title ||
+              info.detail.name ||
+              info.detail.original_name ||
+              info.detail.original_title}
+
+            <small className="text-xl ml-2">
+              {info.detail.release_date.split("-")[0]}
+            </small>
+          </h1>
+          <h1 className=" my-2 italic text-xl font-semibold text-white ">
+            {info.detail.tagline}
+          </h1>
+
+          <div className="flex items-center gap-x-4 my-5">
+            <span className=" w-[8vh] h-[8vh] rounded-full  bg-red-600 text-lg font-extrabold flex items-center justify-center">
+              {(info.detail.vote_average * 10).toFixed()} <sup>%</sup>
+            </span>
+            <h1 className="w-[5vw] leading-6 font-semibold text-2xl">
+              User Score
+            </h1>
+            <h1 className="text-lg font-medium text-zinc-300 ">
+              {info.detail.release_date}
+            </h1>
+            <h1 className="text-lg font-medium text-zinc-300">
+              {info.detail.genres.map((g) => g.name).join(",")}
+            </h1>
+          </div>
+          <h1 className="text-3xl font-thin my-3">Overview</h1>
+          <p className="text-sm leading-5 font-medium text-zinc-400">
+            {info.detail.overview}
+          </p>
+          <h1 className="text-3xl font-thin my-3 ">Movie </h1>
+          <p className="text-sm mb-10 leading-5 font-medium text-zinc-400">
+            {info.translations.join(", ")}
+          </p>
+
+          <Link
+            className="px-5 py-3 bg-[#6556cd] rounded-3xl"
+            to={`${pathname}/trailer`}
+          >
+            Play Trailer
+          </Link>
+        </div>
+      </div>
+
+      {/*  */}
+      <div className=" W-[80vw] flex flex-col mt-10 gap-y-5">
+        {info.watchproviders && info.watchproviders.flatrate && (
+          <div className="flex items-center gap-x-4">
+            <h1>Available on Platform :-</h1>
+            {info.watchproviders.flatrate.map((w, i) => (
+              <img
+                key={i}
+                title={w.provider_name}
+                className="w-[5vh] h-[5vh] object-cover rounded"
+                src={`https://image.tmdb.org/t/p/original/${w.logo_path}`}
+                alt=""
+              />
+            ))}
+          </div>
+        )}
+
+        {info.watchproviders && info.watchproviders.rent && (
+          <div className="flex items-center gap-x-4">
+            <h1>Available on rent :-</h1>
+            {info.watchproviders.rent.map((w, i) => (
+              <img
+                title={w.provider_name}
+                key={i}
+                className="w-[5vh] h-[5vh] object-cover rounded"
+                src={`https://image.tmdb.org/t/p/original/${w.logo_path}`}
+                alt=""
+              />
+            ))}
+          </div>
+        )}
+
+        {info.watchproviders && info.watchproviders.buy && (
+          <div className="flex items-center gap-x-4">
+            <h1>Available on buy :-</h1>
+            {info.watchproviders.buy.map((w, i) => (
+              <img
+                key={i}
+                title={w.provider_name}
+                className="w-[5vh] h-[5vh] object-cover rounded"
+                src={`https://image.tmdb.org/t/p/original/${w.logo_path}`}
+                alt=""
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      <hr className="my-8  border border-zinc-600" />
+
+      <h1 className="text-3xl font-semibold ">
+        Recommendations & similar stuff
+      </h1>
+      <HorizontalCards
+        data={
+          info.recommendations.length > 0 ? info.recommendations : info.similar
+        }
+      />
     </div>
   ) : (
     <Loader />
