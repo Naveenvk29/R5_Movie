@@ -22,10 +22,8 @@ export const asyncloadTv = (id) => async (dispatch, getState) => {
       watchproviders:
         watchproviders.data.results.IN || watchproviders.data.results.US,
     };
-    // console.log(theultimateddetails);
 
     dispatch(loadTv(theultimateddetails));
-    console.log(theultimateddetails);
   } catch (error) {
     console.log(error);
   }

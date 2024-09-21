@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import NoImage from "../assets/noimage.jpg";
 
 const Cards = ({ data, title }) => {
-  console.log(data);
-
   return (
     <div className="flex flex-wrap w-[full] px-[8vw]">
       {data.map((d, i) => (

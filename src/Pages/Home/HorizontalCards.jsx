@@ -6,7 +6,7 @@ const HorizontalCards = ({ data }) => {
     <div className=" w-[100%] flex mb-5 overflow-x-auto p-5 ">
       {data.map((d, i) => (
         <Link
-          to={`/${d.media_type}/details/${d.id}`}
+          to={`/${d.media_type || (d.title ? "movie" : "tv")}/details/${d.id}`}
           key={i}
           className="w-[20%] h-[45vh] bg-zinc-800 flex-shrink-0  mr-5 overflow-y-hidden  rounded-lg"
         >

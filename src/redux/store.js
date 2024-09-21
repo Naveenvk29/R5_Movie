@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import movieReducer from "./features/MovieSlice";
 import tvReducer from "./features/TvSlice";
-import peopleReducer from "./features/PeopleSlice";
+import personReducer from "./features/PersonSlice";
 const store = configureStore({
   reducer: {
     movie: movieReducer,
     tv: tvReducer,
-    people: peopleReducer,
+    person: personReducer,
   },
 });
 
