@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import {
+  Link,
+  useParams,
+  useNavigate,
+  useLocation,
+  Outlet,
+} from "react-router-dom";
 import { asyncloadmovie } from "../../redux/actions/movieAction";
 import { removeMovie } from "../../redux/features/MovieSlice";
 import Loader from "../../Components/Loader";
@@ -29,7 +35,7 @@ const MovieDetail = () => {
         backgroundSize: "cover",
         backgroundPosition: "top 10",
       }}
-      className="w-[99vw] min-h-[170vh]  px-[10vw]"
+      className=" relative w-[99vw] min-h-[170vh] px-[10%] "
     >
       <nav className=" w-full text-zinc-200 flex gap-10 text-2xl my-5 ">
         <Link
@@ -168,6 +174,8 @@ const MovieDetail = () => {
           info.recommendations.length > 0 ? info.recommendations : info.similar
         }
       />
+
+      <Outlet />
     </div>
   ) : (
     <Loader />
