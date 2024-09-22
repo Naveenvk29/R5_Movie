@@ -52,7 +52,7 @@ https://www.themoviedb.org .
 
 - React.js
 - Vercel for hosting
-- External API (e.g., TMDb API)
+- External API TMDb API :- https://www.themoviedb.org
 
 ## License
 This project is licensed under the MIT License.
